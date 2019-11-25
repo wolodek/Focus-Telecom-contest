@@ -2,6 +2,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const app = express();
+const environments = require("./environment.js");
 
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -10,6 +11,7 @@ app.use(function(req, res, next) {
 });
 const server = app.listen(3000, function() {
   console.log("Sitecall app listening on port 3000!");
+  console.log(environments)
 });
 
 app.use(bodyParser.text());
@@ -17,10 +19,10 @@ app.use(bodyParser.json());
 
 // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX DIALER CONFIGURATION XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
-const login = "";
-const password = "";
-const url = "";
-const number = "";
+const login = environments.login
+const password = environments.password
+const url = environments.url;
+const number = environments.number;
 
 const dialer = require("dialer").Dialer;
 
@@ -105,5 +107,4 @@ async function toogleFakeApi(req, res) {
   }
   res.json({ isApiFake: fake });
 }
-
 
