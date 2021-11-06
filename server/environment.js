@@ -2,5 +2,5 @@ const environment = module.exports = {
     url: "",
     login: "",
     password: "",
-    number: ""
+    number: "123456789"
 };

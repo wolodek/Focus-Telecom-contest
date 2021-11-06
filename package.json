@@ -1,0 +1,19 @@
+{
+  "name": "focus-telecom-contest",
+  "version": "1.0.0",
+  "description": "## Project setup 1 - dependencies",
+  "main": "index.js",
+  "scripts": {
+    "init": "cd frontend && npm ci && cd ../backend && npm ci"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Bustuk/Focus-Telecom-contest.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Bustuk/Focus-Telecom-contest/issues"
+  },
+  "homepage": "https://github.com/Bustuk/Focus-Telecom-contest#readme"
+}
