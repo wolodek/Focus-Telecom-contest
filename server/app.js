@@ -45,7 +45,7 @@ app.get("/apistatus", getApiStatus);
 
 //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX VARIABLES USED IN ROUTES LOGIC DECLARATION XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
-const io = require("socket.io")(server); 
+const io = require("socket.io")(server, {origins: "http://localhost:8080"}); 
 
 const gen = idMaker(); //generator for unique call id's
 let id = gen.next().value;
