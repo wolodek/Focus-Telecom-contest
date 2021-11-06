@@ -2,19 +2,19 @@
   <form @submit.prevent="submit">
     <div
       class="form-group"
-      :class="{ 'form-group--error': (submitStatus === 'ERROR' && $v.number.$error) || !$v.number.numeric || !$v.number.maxLength}"
+      :class="{ 'form-group--error': (submitStatus === 'ERROR' && v$.number.$error) || !v$.number.numeric || !v$.number.maxLength}"
     >
-      <input class="form__input" v-model.trim="$v.number.$model" />
+      <input class="form__input" v-model.trim="v$.number.$model" />
     </div>
     <div
       class="error"
-      v-if="submitStatus === 'ERROR' && !$v.number.required"
+      v-if="submitStatus === 'ERROR' && !v$.number.required"
     >Pole nie może być puste!</div>
-    <div class="error" v-if="!$v.number.numeric">Numer musi składać się wyłącznie z cyfr.</div>
+    <div class="error" v-if="!v$.number.numeric">Numer musi składać się wyłącznie z cyfr.</div>
     <div
       class="error"
-      v-if="(submitStatus === 'ERROR' && !$v.number.minLength) || !$v.number.maxLength"
-    >Numer musi składać się z {{ $v.number.$params.minLength.min }} cyfr.</div>
+      v-if="(submitStatus === 'ERROR' && !v$.number.minLength) || !v$.number.maxLength"
+    >Numer musi składać się z 9 cyfr.</div>
     <CallButtonComponent @click="submit()" :disabled="submitStatus === 'PENDING'" />
     <p class="typo__p" v-if="submitStatus === 'OK'">Dziękujemy za podanie numeru!</p>
     <p class="typo__p" v-if="submitStatus === 'ERROR'">Uzupełnij wymagane pole!</p>
@@ -23,17 +23,21 @@
 </template>
 
 <script>
+import useVuelidate from '@vuelidate/core';
 import {
   required,
   minLength,
   maxLength,
   numeric
-} from "vuelidate/lib/validators";
+} from "@vuelidate/validators";
 import CallButtonComponent from "./CallButtonComponent";
 import CallService from "../services/CallService";
 export default {
   components: {
     CallButtonComponent
+  },
+  setup () {
+    return { v$: useVuelidate() }
   },
   data() {
     return {
@@ -41,18 +45,20 @@ export default {
       submitStatus: null
     };
   },
-  validations: {
-    number: {
-      numeric,
-      required,
-      minLength: minLength(9),
-      maxLength: maxLength(9)
+  validations() {
+    return {
+      number: {
+        numeric,
+        required,
+        minLengthValue: minLength(9),
+        maxLengthValue: maxLength(9)
+      }
     }
   },
   methods: {
     submit() {
-      this.$v.$touch();
-      if (this.$v.$invalid) {
+      this.v$.$touch();
+      if (this.v$.$invalid) {
         this.submitStatus = "ERROR";
       } else {
         CallService.call(this.number, this.$router);

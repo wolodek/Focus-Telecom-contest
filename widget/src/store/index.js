@@ -1,10 +1,8 @@
 import calls from "./modules/calls";
-import Vue from "vue";
-import Vuex from "vuex";
+import { createStore } from "vuex";
 import api from "./modules/api";
 
-Vue.use(Vuex);
-const store = new Vuex.Store({
+const store = createStore({
   modules: {
     calls,
     api

@@ -1,18 +1,12 @@
-import Vue from "vue";
-import VueRouter from "vue-router";
+import { createRouter, createWebHistory } from "vue-router";
 import Start from "../views/Start.vue";
 import Ringing from "../views/Ringing.vue";
 import Connected from "../views/Connected.vue";
 import Answered from "../views/Answered.vue";
 import Failed from "../views/Failed.vue";
 import History from "../views/History.vue";
-Vue.use(VueRouter);
+
 const routes = [
-  {
-    path: "*",
-    name: "start",
-    component: Start
-  },
   {
     path: "/ringing",
     name: "ringing",
@@ -42,9 +36,15 @@ const routes = [
     name: "history",
     component: History,
     props: true
-  }
+  },
+  {
+    path: "/:pathMatch(.*)*",
+    name: "start",
+    component: Start
+  },
 ];
-const router = new VueRouter({
-  routes
+const router = createRouter({
+  routes,
+  history: createWebHistory()
 });
 export default router;

@@ -18,7 +18,7 @@ export default {
       internal: null
     };
   },
-  destroyed() {
+  unmounted() {
     clearInterval(this.internal);
     const id = this.$route.params.callsId;
     this.$store.dispatch("updateCallTime", { id: id, time: this.time });
