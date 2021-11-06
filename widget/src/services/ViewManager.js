@@ -18,7 +18,11 @@ class ViewManager {
     }
   }
   checkStatus(callsId) {
-    this.socket = io.connect("http://localhost:3000");
+    //this.socket = io.connect("http://localhost:3000");
+    this.socket = io('http://localhost:3000', {
+      reconnection: false,
+      transports: ["websocket", "polling"]
+    });
     this.socket.on("status", status => {
       this.status = status;
       this.changeView(callsId);

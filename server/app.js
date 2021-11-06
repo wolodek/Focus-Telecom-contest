@@ -3,6 +3,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const app = express();
 const environments = require("./environment.js");
+const { Server } = require("socket.io");
 
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -45,8 +46,13 @@ app.get("/apistatus", getApiStatus);
 
 //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX VARIABLES USED IN ROUTES LOGIC DECLARATION XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
-const io = require("socket.io")(server, {origins: "http://localhost:8080"}); 
-
+//const io = require("socket.io")(server, {origins: "http://localhost:8080"}); 
+const io = new Server(server, {
+  cors: {
+    origin: "http://localhost:8080",
+    methods: ["GET", "POST", "OPTIONS"],
+  }
+})
 const gen = idMaker(); //generator for unique call id's
 let id = gen.next().value;
 
