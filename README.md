@@ -5,14 +5,14 @@
 Backend
 
 ```
-cd backend
+cd server
 npm install
 ```
 
 Frontend
 
 ```
-cd frontend
+cd widget
 npm install
 ```
 
@@ -34,14 +34,14 @@ number: ""
 Backend
 
 ```
-cd backend
+cd server
 node app.js
 ```
 
 Frontend
 
 ```
-cd frontend
+cd widget
 npm run serve
 ```
 
