@@ -1,7 +1,7 @@
 class CallService {
   constructor() {}
   call = async (number, router) => {
-    let responseStream = await fetch("http://localhost:3000/call", {
+    let responseStream = await fetch(process.env.VUE_APP_SERVER_URL + "/call", {
       method: "POST",
       headers: {
         "Content-type": "application/json; charset=UTF-8"

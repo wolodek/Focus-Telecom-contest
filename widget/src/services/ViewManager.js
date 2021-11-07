@@ -18,8 +18,7 @@ class ViewManager {
     }
   }
   checkStatus(callsId) {
-    //this.socket = io.connect("http://localhost:3000");
-    this.socket = io('http://localhost:3000', {
+    this.socket = io(process.env.VUE_APP_SERVER_URL, {
       reconnection: false,
       transports: ["websocket", "polling"]
     });

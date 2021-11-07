@@ -1,7 +1,7 @@
 class ToggleFakeApiService {
   constructor() {}
   toggle = async isApiFake => {
-    let responseStream = await fetch("http://localhost:3000/fakeapi", {
+    let responseStream = await fetch(process.env.VUE_APP_SERVER_URL + "/fakeapi", {
       method: "POST",
       headers: {
         "Content-type": "application/json; charset=UTF-8"
@@ -13,7 +13,7 @@ class ToggleFakeApiService {
     return result.isApiFake;
   };
   getStatus = async () => {
-    let responseStream = await fetch(`http://localhost:3000/apistatus`, {
+    let responseStream = await fetch(process.env.VUE_APP_SERVER_URL + "/apistatus", {
       method: "GET"
     });
     let response = await responseStream.json();

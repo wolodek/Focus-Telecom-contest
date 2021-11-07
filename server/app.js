@@ -4,6 +4,8 @@ const bodyParser = require("body-parser");
 const app = express();
 const environments = require("./environment.js");
 const { Server } = require("socket.io");
+let developmentUrl = 'http://localhost:8080' 
+
 
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -14,6 +16,10 @@ const server = app.listen(3000, function() {
   console.log("Sitecall app listening on port 3000!");
   console.log(environments)
 });
+
+if (process.env.WIDGET_URL) {
+  developmentUrl = process.env.WIDGET_URL
+}
 
 app.use(bodyParser.text());
 app.use(bodyParser.json());
@@ -45,11 +51,10 @@ app.post("/fakeapi", toogleFakeApi );
 app.get("/apistatus", getApiStatus);
 
 //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX VARIABLES USED IN ROUTES LOGIC DECLARATION XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-//const io = require("socket.io")(server, {origins: "http://localhost:8080"}); 
+console.log(developmentUrl);
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:8080",
+    origin: developmentUrl,
     methods: ["GET", "POST", "OPTIONS"],
   }
 })
